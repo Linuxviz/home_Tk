@@ -2,7 +2,7 @@ from tkinter import Tk, Label, Button, Entry, PhotoImage, StringVar
 
 
 class Window:
-    """ Материнский класс виджетов приложений """
+    """ Материнский класс виджетов приложений   """
 
     def __init__(self):
         self.win_width = 400
