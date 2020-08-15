@@ -1,0 +1,2 @@
+date :str,mass :float,top_pressure :int,bottom_pressure :int,pulse :int
+

@@ -124,3 +124,10 @@ class ReminderWindow(Window):
                                              )
         authorization_text.pack()
         authorization_button_submit.pack()
+
+class MainWindow(Window):
+    def __init__(self):
+        super().__init__()
+
+    def _special_initialization(self):
+        pass
