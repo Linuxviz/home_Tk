@@ -36,6 +36,9 @@ class Data():
         new_df = df.append(input_df, ignore_index=True)
         new_df.to_csv('.\\data\\health_index.csv', index_label=False)
 
+        def get_data():
+            pass
+
 
 #x = Data()
 #x.first_create()
