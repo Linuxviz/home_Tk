@@ -1,4 +1,5 @@
 from tkinter import Tk, Label, Button, Entry, PhotoImage, StringVar
+import plot
 
 
 class Window:
@@ -7,6 +8,7 @@ class Window:
     def __init__(self):
         self.win_width = 400
         self.win_height = 800
+        self.background_color = "#556"
         self.title = ''
         self.root = Tk()
         print('created')
@@ -19,6 +21,7 @@ class Window:
     def create(self):
         """Публичный метод проводящий инициализацию виджетов tk внутри открытого окна"""
         self.root.geometry(str(self.win_width) + 'x' + str(self.win_height))
+        self.root['bg'] = self.background_color
         self.root.title(self.title)
         print('-')
         self._special_initialization()
@@ -128,6 +131,9 @@ class ReminderWindow(Window):
 class MainWindow(Window):
     def __init__(self):
         super().__init__()
+        self.title = 'Основная информация'
 
     def _special_initialization(self):
-        pass
+        first_figure = plot.PlotClass(self.root, 1, 2)
+        second_figure = plot.PlotClass(self.root, 1, 2)
+        third_figure = plot.PlotClass(self.root, 1, 2)

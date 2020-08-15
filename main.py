@@ -39,11 +39,15 @@ import data_cl
 #     del G
 # print(locals())
 
-T = window_cl.ReminderWindow()
-T.create()
-print(locals())
-#if T.is_ready():
-    #del T
+# T = window_cl.ReminderWindow()
+# T.create()
+# print(locals())
+# #if T.is_ready():
+#     #del T
+
+Z = window_cl.MainWindow()
+Z.create()
+
 
 # root = Tk()
 # win_width = 300

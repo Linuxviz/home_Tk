@@ -6,9 +6,11 @@ from tkinter import Tk
 
 
 class PlotClass:
-    def __init__(self, window):
+    def __init__(self, window, x, y):
         self.window = window
         self.plot()
+        self.x = x
+        self.y = y
 
     def plot(self):
         x = array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -29,5 +31,5 @@ class PlotClass:
 
 
 # window = Tk()
-# start = PlotClass(window)
+# start = PlotClass(window,1,2)
 # window.mainloop()

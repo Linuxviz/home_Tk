@@ -39,7 +39,15 @@ class Data():
         def get_data():
             pass
 
+    def data_backup(self):
+        df = read_csv('.\\data\\health_index.csv')
+        df.to_csv('.\\data\\health_index' + '_{}.{}.{}_backup'.format(self.day, self.month, self.year) + '.csv',
+                  index_label=False)
 
+    def get_data(self):
+        df = read_csv('.\\data\\health_index.csv')
+        return df
 #x = Data()
-#x.first_create()
-#x.save_data(12.5, 15, 15, 15)
+#x.data_backup()
+# x.first_create()
+# x.save_data(12.5, 15, 15, 15)

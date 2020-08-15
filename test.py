@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-import Ploot_cl
+import plot
 
 
 def show_message():
@@ -18,5 +18,5 @@ message_button = Button(text="Click Me", command=show_message)
 
 message_button.pack()
 message_entry.pack()
-stert = Ploot_cl.PlotClass(root)
+stert = plot.PlotClass(root,2,3)
 root.mainloop()
