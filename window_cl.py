@@ -143,7 +143,11 @@ class MainWindow(Window):
 
     def __compute_data(self):
         data = data_cl.Data()
-        data.save_data(self.input_mass, self.input_top_pressure, self.input_bottom_pressure, self.input_pulse)
+        # ВНЕСТИ ПРОВЕРКИ
+        data.save_data(self.input_mass.get(),
+                       self.input_top_pressure.get(),
+                       self.input_bottom_pressure.get(),
+                       self.input_pulse.get())
 
     def _special_initialization(self):
         mass_text = Label(self.root, text="Вес")
@@ -166,7 +170,7 @@ class MainWindow(Window):
                                padx="20",  # отступ от границ до содержимого по горизонтали
                                pady="8",  # отступ от границ до содержимого по вертикали
                                font="16",  # высота шрифта
-                               command=__compute_data
+                               command=self.__compute_data
                                )
         title_text = Label(self.root, text="Дела на сегодня")
         text = Label(self.root, text="Дела на сегодня")
