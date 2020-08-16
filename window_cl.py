@@ -1,5 +1,6 @@
 from tkinter import Tk, Label, Button, Entry, PhotoImage, StringVar
 import plot
+import data_cl
 
 
 class Window:
@@ -128,12 +129,55 @@ class ReminderWindow(Window):
         authorization_text.pack()
         authorization_button_submit.pack()
 
+
 class MainWindow(Window):
     def __init__(self):
         super().__init__()
         self.title = 'Основная информация'
+        self.win_height = 800
+        self.win_width = 1000
+        self.input_mass = StringVar()
+        self.input_top_pressure = StringVar()
+        self.input_bottom_pressure = StringVar()
+        self.input_pulse = StringVar()
+
+    def __compute_data(self):
+        data = data_cl.Data()
+        data.save_data(self.input_mass, self.input_top_pressure, self.input_bottom_pressure, self.input_pulse)
 
     def _special_initialization(self):
+        mass_text = Label(self.root, text="Вес")
+        mass_entry = Entry(self.root, width=0, textvariable=self.input_mass)
+        top_pressure_text = Label(self.root, text="Верхнее давление")
+        top_pressure_entry = Entry(self.root, width=0, textvariable=self.input_top_pressure)
+        bottom_pressure_text = Label(self.root, text="Нижнее давление")
+        bottom_pressure_entry = Entry(self.root, width=0, textvariable=self.input_bottom_pressure)
+        pulse = Label(self.root, text="Пульс")
+        pulse_entry = Entry(self.root, width=0, textvariable=self.input_pulse)
         first_figure = plot.PlotClass(self.root, 1, 2)
         second_figure = plot.PlotClass(self.root, 1, 2)
         third_figure = plot.PlotClass(self.root, 1, 2)
+        button_submit = Button(self.root,
+                               text="Внести",
+                               background="#555",
+                               activebackground="white",
+                               activeforeground="#556",
+                               foreground="#ccc",
+                               padx="20",  # отступ от границ до содержимого по горизонтали
+                               pady="8",  # отступ от границ до содержимого по вертикали
+                               font="16",  # высота шрифта
+                               command=__compute_data
+                               )
+        title_text = Label(self.root, text="Дела на сегодня")
+        text = Label(self.root, text="Дела на сегодня")
+        mass_text.pack()
+        mass_entry.pack()
+        top_pressure_text.pack()
+        top_pressure_entry.pack()
+        bottom_pressure_text.pack()
+        bottom_pressure_entry.pack()
+        pulse.pack()
+        pulse_entry.pack()
+        button_submit.pack()
+        title_text.pack()
+        text.pack()
