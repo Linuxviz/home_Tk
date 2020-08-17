@@ -1,23 +1,30 @@
-from tkinter import Tk
-#from tkinter import Button
-#from tkinter import Label, Entry
 import window_cl
-import data_cl
 
 
-#W = window_cl.Window().create()
-#print(locals())
-# G = window_cl.AuthorizationWindow()
-# G.create()
-# if G.is_authorization_complete():
-#     del G
-# print(locals())
+class MainCommander():
+    def __init__(self):
+        self.start_rem_window()
 
-# T = window_cl.ReminderWindow()
-# T.create()
-# print(locals())
-# #if T.is_ready():
-#     #del T
+    def start_rem_window(self):
+        obj = window_cl.ReminderWindow()
+        obj.create()
+        if obj.is_ready():
+            obj.stop()
+            del obj
+            self.start_authorization_window()
 
-Z = window_cl.MainWindow()
-Z.create()
+    def start_authorization_window(self):
+        obj = window_cl.AuthorizationWindow()
+        obj.create()
+        if obj.is_authorization_complete():
+            obj.stop()
+            del obj
+            self.start_main_window()
+
+    def start_main_window(self):
+        obj = window_cl.MainWindow()
+        obj.create()
+
+
+if __name__ == '__main__':
+    run = MainCommander()
