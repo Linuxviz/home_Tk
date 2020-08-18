@@ -18,5 +18,5 @@ message_button = Button(text="Click Me", command=show_message)
 
 message_button.pack()
 message_entry.pack()
-stert = plot.PlotClass(root,2,3)
+stert = plot.Plot(root,2,3)
 root.mainloop()

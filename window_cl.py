@@ -160,12 +160,14 @@ class MainWindow(Window):
         bottom_pressure_entry = Entry(self.root, width=0, textvariable=self.input_bottom_pressure)
         pulse = Label(self.root, text="Пульс")
         pulse_entry = Entry(self.root, width=0, textvariable=self.input_pulse)
-
-        mass_data = data_cl.Data().get_mass()
-
-        first_figure = plot.PlotClass(self.root, mass_data[0], mass_data[1], 'масса')
-        #second_figure = plot.PlotClass(self.root, 1, 2)
-        #third_figure = plot.PlotClass(self.root, 1, 2)
+        first_figure = plot.Plot(self.root, data_cl.Data().get_mass()[0], data_cl.Data().get_mass()[1], 'Масса', 0, 0)
+        second_figure = plot.Plot(self.root, data_cl.Data().get_pulse()[0], data_cl.Data().get_pulse()[1], 'Пульс', 0, 0)
+        third_figure = plot.Plot(self.root,
+                                 data_cl.Data().get_top_pressure()[0],
+                                 data_cl.Data().get_top_pressure()[1],
+                                 'Пульс',
+                                 data_cl.Data().get_bottom_pressure()[0],
+                                 data_cl.Data().get_bottom_pressure()[1])
         button_submit = Button(self.root,
                                text="Внести",
                                background="#555",

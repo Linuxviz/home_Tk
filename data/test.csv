@@ -1,2 +1,7 @@
-date :str,mass :float,top_pressure :int,bottom_pressure :int,pulse :int
-
+day,month,year,mass,top_pressure,bottom_pressure,pulse
+0,17,8,2020,12.5,15,85,74
+1,18,8,2020,12.6,18,72,70
+2,19,8,2020,12.5,45,8,74
+3,20,8,2020,11.6,48,7,70
+4,21,8,2020,10.5,56,35,74
+5,22,8,2020,15.6,47,23,70
