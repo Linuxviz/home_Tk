@@ -12,7 +12,6 @@ class MainCommander():
             obj.stop()
             del obj
             self.start_authorization_window()
-
     def start_authorization_window(self):
         obj = window_cl.AuthorizationWindow()
         obj.create()

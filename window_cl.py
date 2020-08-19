@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, Entry, PhotoImage, StringVar
+from tkinter import Tk, Label, Button, Entry, PhotoImage, StringVar, CENTER
 import plot
 import data_cl
 
@@ -9,9 +9,11 @@ class Window:
     def __init__(self):
         self.win_width = 400
         self.win_height = 800
-        self.background_color = "#556"
+        self.font = 'Tahoma'
+        self.background_color = "#796C80"
         self.title = ''
         self.root = Tk()
+        self.root.resizable(width=False, height=False)
         print('created')
 
     def _special_initialization(self):
@@ -32,6 +34,58 @@ class Window:
 
     def stop(self):
         self.root.destroy()
+
+
+class ReminderWindow(Window):
+    """Окно напоминания"""
+
+    def __init__(self):
+        super().__init__()
+        self.title = 'Напоминание'
+        self.win_height = 180
+        self.win_width = 300
+        self.ready = False
+
+    def is_ready(self):
+        return self.ready
+
+    def __ready(self):
+        self.ready = True
+        self.root.quit()
+
+    def _special_initialization(self):
+        authorization_text = Label(self.root,
+                                   text="У тебя много дел на сегодня!",
+                                   background="#796C80",
+                                   foreground='#E0DAC4',
+                                   anchor='center',
+                                   font=self.font + ' 15')
+        authorization_button_submit = Button(self.root,
+                                             text="Готов их сделать!",
+                                             background="#412252",
+                                             activebackground="white",
+                                             activeforeground="#556",
+                                             foreground="#57712E",
+                                             padx="20",  # отступ от границ до содержимого по горизонтали
+                                             pady="8",  # отступ от границ до содержимого по вертикали
+                                             font="16",  # высота шрифта
+                                             command=self.__ready
+                                             )
+        close_button_submit = Button(self.root,
+                                             text="Позже",
+                                             background="#412252",
+                                             activebackground="white",
+                                             activeforeground="#556",
+                                             foreground="#57712E",
+                                             padx="20",  # отступ от границ до содержимого по горизонтали
+                                             pady="8",  # отступ от границ до содержимого по вертикали
+                                             font="16",  # высота шрифта
+                                             command=self.stop
+                                             )
+        authorization_text.pack(pady=9, expand=1, anchor='n')
+        authorization_button_submit.pack(pady=9, expand=1)
+        close_button_submit.pack(pady=9, expand=1)
+
 
 
 class AuthorizationWindow(Window):
@@ -76,7 +130,6 @@ class AuthorizationWindow(Window):
 
     def _special_initialization(self):
         print('Я вызван и это хорошо')
-        # bg = PhotoImage(file="imgbg.png")
         authorization_text = Label(self.root, text="Это точно ты? Введи пароль!")
         authorization_password = Entry(self.root, width=0, textvariable=self.input_password)
         self.error_text = Label(self.root,
@@ -96,39 +149,6 @@ class AuthorizationWindow(Window):
                                              )
         authorization_text.pack()
         authorization_password.pack()
-        authorization_button_submit.pack()
-
-
-class ReminderWindow(Window):
-    """Окно напоминания"""
-
-    def __init__(self):
-        super().__init__()
-        self.title = 'Напоминание'
-        self.win_height = 200
-        self.ready = False
-
-    def is_ready(self):
-        return self.ready
-
-    def __ready(self):
-        self.ready = True
-        self.root.quit()
-
-    def _special_initialization(self):
-        authorization_text = Label(self.root, text="У тебя много дел на сегодня!")
-        authorization_button_submit = Button(self.root,
-                                             text="Готов их сделать",
-                                             background="#555",
-                                             activebackground="white",
-                                             activeforeground="#556",
-                                             foreground="#ccc",
-                                             padx="20",  # отступ от границ до содержимого по горизонтали
-                                             pady="8",  # отступ от границ до содержимого по вертикали
-                                             font="16",  # высота шрифта
-                                             command=self.__ready
-                                             )
-        authorization_text.pack()
         authorization_button_submit.pack()
 
 
@@ -161,7 +181,8 @@ class MainWindow(Window):
         pulse = Label(self.root, text="Пульс")
         pulse_entry = Entry(self.root, width=0, textvariable=self.input_pulse)
         first_figure = plot.Plot(self.root, data_cl.Data().get_mass()[0], data_cl.Data().get_mass()[1], 'Масса', 0, 0)
-        second_figure = plot.Plot(self.root, data_cl.Data().get_pulse()[0], data_cl.Data().get_pulse()[1], 'Пульс', 0, 0)
+        second_figure = plot.Plot(self.root, data_cl.Data().get_pulse()[0], data_cl.Data().get_pulse()[1], 'Пульс', 0,
+                                  0)
         third_figure = plot.Plot(self.root,
                                  data_cl.Data().get_top_pressure()[0],
                                  data_cl.Data().get_top_pressure()[1],
@@ -192,3 +213,6 @@ class MainWindow(Window):
         button_submit.pack()
         title_text.pack()
         text.pack()
+
+
+#t = ReminderWindow().create()
