@@ -4,6 +4,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from numpy import random
 import matplotlib.pyplot as plt
+from colors import *
 
 class Plot:
     def __init__(self, window, x, y, title, x1, y1):
@@ -26,21 +27,21 @@ class Plot:
 
 
             # Initialise the figure and axes.
-            fig, ax = plt.subplots(1, figsize=(8, 6))
+            fig, ax = plt.subplots(1, figsize=(7, 2.5))
 
             #create grid
             ax.grid()
 
             # Set the title for the figure
-            fig.suptitle('Multiple Lines in Same Plot', fontsize=15)
+            fig.suptitle('Давление', fontsize=15, font='Tahoma')
 
             # Draw all the lines in the same plot, assigning a label for each one to be
             # shown in the legend.
-            ax.plot(range(len(y)), y, color="red", label="My Line 1")
-            ax.plot(range(len(y1)), y1, color="green", label="My Line 2")
+            ax.plot(range(len(y)), y, color="red", label="Верхнее давление")
+            ax.plot(range(len(y1)), y1, color="green", label="Нижнее давление")
 
             # Add a legend, and position it on the lower right (with no box)
-            plt.legend(loc="lower right", title="Legend Title", frameon=False)
+            plt.legend(loc="upper right", frameon=False)
 
             canvas = FigureCanvasTkAgg(fig, master=self.window)
             canvas.get_tk_widget().pack()
@@ -49,13 +50,13 @@ class Plot:
             x = self.x
             y = self.y
 
-            fig = Figure(figsize=(2, 2))
+            fig = Figure(figsize=(7, 2.5), facecolor=main_color_gray)
             a = fig.add_subplot(111)
+            a.grid()
             a.plot(range(len(y)), y, color='red')
 
-            a.set_title(self.title, fontsize=16)
-            a.set_ylabel("sd", fontsize=14)
-            a.set_xlabel("Дата", fontsize=14)
+            a.set_title(self.title, font='Tahoma', fontsize=18, color=tertiary_color_very_light)
+            a.set_ylabel("Кг", fontsize=14)
 
             canvas = FigureCanvasTkAgg(fig, master=self.window)
             canvas.get_tk_widget().pack()

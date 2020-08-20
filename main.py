@@ -23,7 +23,7 @@ class MainCommander():
     def start_main_window(self):
         obj = window_cl.MainWindow()
         obj.create()
-
+        del obj
 
 if __name__ == '__main__':
     run = MainCommander()

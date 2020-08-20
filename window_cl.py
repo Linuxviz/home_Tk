@@ -1,6 +1,7 @@
-from tkinter import Tk, Label, Button, Entry, PhotoImage, StringVar, CENTER
+from tkinter import Tk, Label, Button, Entry, PhotoImage, StringVar, CENTER, Frame
 import plot
 import data_cl
+from colors import *
 
 
 class Window:
@@ -10,15 +11,13 @@ class Window:
         self.win_width = 400
         self.win_height = 800
         self.font = 'Tahoma'
-        self.background_color = "#796C80"
+        self.background_color = main_color_gray
         self.title = ''
         self.root = Tk()
         self.root.resizable(width=False, height=False)
-        print('created')
 
     def _special_initialization(self):
         """В этом методе в дочерних классах описывается спецефичное для них поведение во инициализации их параметров"""
-        print('Я вызван')
         return 0
 
     def create(self):
@@ -31,6 +30,19 @@ class Window:
         print('+')
         self.root.mainloop()
         print('mainloop')
+
+    def _close_button(self, root, text):
+        close_button_submit = Button(root,
+                                     text=text,
+                                     background=main_color_black,
+                                     activebackground=main_color_very_light,
+                                     activeforeground=secondary_color_very_light,
+                                     foreground=secondary_color_very_light,
+                                     padx="20",  # отступ от границ до содержимого по горизонтали
+                                     pady="8",  # отступ от границ до содержимого по вертикали
+                                     font="16",  # высота шрифта
+                                     command=self.stop)
+        return close_button_submit
 
     def stop(self):
         self.root.destroy()
@@ -56,36 +68,24 @@ class ReminderWindow(Window):
     def _special_initialization(self):
         authorization_text = Label(self.root,
                                    text="У тебя много дел на сегодня!",
-                                   background="#796C80",
-                                   foreground='#E0DAC4',
+                                   background=main_color_gray,
+                                   foreground=tertiary_color_very_light,
                                    anchor='center',
                                    font=self.font + ' 15')
         authorization_button_submit = Button(self.root,
                                              text="Готов их сделать!",
-                                             background="#412252",
-                                             activebackground="white",
-                                             activeforeground="#556",
-                                             foreground="#57712E",
+                                             background=main_color_black,
+                                             activebackground=main_color_very_light,
+                                             activeforeground=secondary_color_very_light,
+                                             foreground=secondary_color_very_light,
                                              padx="20",  # отступ от границ до содержимого по горизонтали
                                              pady="8",  # отступ от границ до содержимого по вертикали
                                              font="16",  # высота шрифта
-                                             command=self.__ready
-                                             )
-        close_button_submit = Button(self.root,
-                                             text="Позже",
-                                             background="#412252",
-                                             activebackground="white",
-                                             activeforeground="#556",
-                                             foreground="#57712E",
-                                             padx="20",  # отступ от границ до содержимого по горизонтали
-                                             pady="8",  # отступ от границ до содержимого по вертикали
-                                             font="16",  # высота шрифта
-                                             command=self.stop
-                                             )
+                                             command=self.__ready)
+        close_button_submit = self._close_button(self.root, "Позже")
         authorization_text.pack(pady=9, expand=1, anchor='n')
         authorization_button_submit.pack(pady=9, expand=1)
         close_button_submit.pack(pady=9, expand=1)
-
 
 
 class AuthorizationWindow(Window):
@@ -93,6 +93,8 @@ class AuthorizationWindow(Window):
 
     def __init__(self):
         super().__init__()
+        self.win_height = 300
+        self.win_width = 300
         self.title = 'Авторизация'
         self.true_password = '1239'
         self.input_password = StringVar()
@@ -111,53 +113,66 @@ class AuthorizationWindow(Window):
             return False
 
     def __authorization(self):
-        print('есть')
         """Метод вызываемый при нажатии кнопки, вызывает сравнение пароля введенного пользователем и
         тем что лежит в классе"""
         password = self.input_password.get()
-        print(password)
         if self.__is_user(password):
             self.authorization_complete = True
-            print('Успех')
             self.root.quit()
         else:
             if self.flag:
-                self.error_text.configure(text='Досихпор неверно')
+                self.error_text.configure(text='До сих пор не подошел')
                 self.error_text.pack()
             else:
                 self.flag = True
                 self.error_text.pack()
 
     def _special_initialization(self):
-        print('Я вызван и это хорошо')
-        authorization_text = Label(self.root, text="Это точно ты? Введи пароль!")
-        authorization_password = Entry(self.root, width=0, textvariable=self.input_password)
+        authorization_text = Label(self.root,
+                                   text="Это точно ты? Введи пароль!",
+                                   background=main_color_gray,
+                                   foreground=tertiary_color_very_light,
+                                   anchor='center',
+                                   font=self.font + ' 15')
+        authorization_password = Entry(self.root,
+                                       width=15,
+                                       background=main_color,
+                                       foreground=tertiary_color_very_light,
+                                       textvariable=self.input_password,
+                                       justify='center',
+                                       font=self.font + ' 15')
         self.error_text = Label(self.root,
                                 text="Ошибка, пароль не подошел",
                                 justify="center",
-                                anchor='center', )
+                                anchor='center',
+                                background=main_color_gray,
+                                foreground=tertiary_color_very_light,
+                                font=self.font + ' 15')
         authorization_button_submit = Button(self.root,
-                                             text="OK",
-                                             background="#555",
-                                             activebackground="white",
-                                             activeforeground="#556",
-                                             foreground="#ccc",
+                                             text="Ввести",
+                                             background=main_color_black,
+                                             activebackground=main_color_very_light,
+                                             activeforeground=secondary_color_very_light,
+                                             foreground=secondary_color_very_light,
                                              padx="20",  # отступ от границ до содержимого по горизонтали
                                              pady="8",  # отступ от границ до содержимого по вертикали
                                              font="16",  # высота шрифта
                                              command=self.__authorization
                                              )
-        authorization_text.pack()
-        authorization_password.pack()
-        authorization_button_submit.pack()
+        close_button_submit = self._close_button(self.root, "Позже")
+
+        authorization_text.pack(pady=9, expand=1, anchor='n')
+        authorization_password.pack(pady=5, expand=1, anchor='n')
+        authorization_button_submit.pack(pady=9, expand=1, anchor='n')
+        close_button_submit.pack(pady=9, expand=1, anchor='n')
 
 
 class MainWindow(Window):
     def __init__(self):
         super().__init__()
         self.title = 'Основная информация'
-        self.win_height = 800
-        self.win_width = 1000
+        self.win_height = 750
+        self.win_width = 926
         self.input_mass = StringVar()
         self.input_top_pressure = StringVar()
         self.input_bottom_pressure = StringVar()
@@ -172,47 +187,117 @@ class MainWindow(Window):
                        self.input_pulse.get())
 
     def _special_initialization(self):
-        mass_text = Label(self.root, text="Вес")
-        mass_entry = Entry(self.root, width=0, textvariable=self.input_mass)
-        top_pressure_text = Label(self.root, text="Верхнее давление")
-        top_pressure_entry = Entry(self.root, width=0, textvariable=self.input_top_pressure)
-        bottom_pressure_text = Label(self.root, text="Нижнее давление")
-        bottom_pressure_entry = Entry(self.root, width=0, textvariable=self.input_bottom_pressure)
-        pulse = Label(self.root, text="Пульс")
-        pulse_entry = Entry(self.root, width=0, textvariable=self.input_pulse)
-        first_figure = plot.Plot(self.root, data_cl.Data().get_mass()[0], data_cl.Data().get_mass()[1], 'Масса', 0, 0)
-        second_figure = plot.Plot(self.root, data_cl.Data().get_pulse()[0], data_cl.Data().get_pulse()[1], 'Пульс', 0,
-                                  0)
-        third_figure = plot.Plot(self.root,
-                                 data_cl.Data().get_top_pressure()[0],
-                                 data_cl.Data().get_top_pressure()[1],
-                                 'Пульс',
-                                 data_cl.Data().get_bottom_pressure()[0],
-                                 data_cl.Data().get_bottom_pressure()[1])
-        button_submit = Button(self.root,
+        graph_frame = Frame(self.root, background=main_color_gray)
+        inform_frame = Frame(self.root, background=main_color_gray)
+        graph_frame.pack(
+            side='left',
+            fill='both',
+        )
+        inform_frame.pack(
+            fill='both',
+            side='left',
+            padx=25
+        )
+
+        mass_text = Label(inform_frame,
+                          text="Масса",
+                          background=main_color_gray,
+                          foreground=tertiary_color_very_light,
+                          anchor='center',
+                          font=self.font + ' 15')
+        mass_entry = Entry(inform_frame,
+                           textvariable=self.input_mass,
+                           width=15,
+                           background=main_color,
+                           foreground=tertiary_color_very_light,
+                           justify='center',
+                           font=self.font + ' 15')
+        top_pressure_text = Label(inform_frame,
+                                  text="Верхнее давление",
+                                  background=main_color_gray,
+                                  foreground=tertiary_color_very_light,
+                                  anchor='center',
+                                  font=self.font + ' 15')
+        top_pressure_entry = Entry(inform_frame,
+                                   textvariable=self.input_top_pressure,
+                                   width=15,
+                                   background=main_color,
+                                   foreground=tertiary_color_very_light,
+                                   justify='center',
+                                   font=self.font + ' 15')
+        bottom_pressure_text = Label(inform_frame,
+                                     text="Нижнее давление",
+                                     background=main_color_gray,
+                                     foreground=tertiary_color_very_light,
+                                     anchor='center',
+                                     font=self.font + ' 15')
+        bottom_pressure_entry = Entry(inform_frame,
+                                      textvariable=self.input_bottom_pressure,
+                                      width=15,
+                                      background=main_color,
+                                      foreground=tertiary_color_very_light,
+                                      justify='center',
+                                      font=self.font + ' 15')
+        pulse = Label(inform_frame,
+                      text="Пульс",
+                      background=main_color_gray,
+                      foreground=tertiary_color_very_light,
+                      anchor='center',
+                      font=self.font + ' 15')
+        pulse_entry = Entry(inform_frame,
+                            textvariable=self.input_pulse,
+                            width=15,
+                            background=main_color,
+                            foreground=tertiary_color_very_light,
+                            justify='center',
+                            font=self.font + ' 15')
+
+        button_submit = Button(inform_frame,
                                text="Внести",
-                               background="#555",
-                               activebackground="white",
-                               activeforeground="#556",
-                               foreground="#ccc",
+                               background=main_color_black,
+                               activebackground=main_color_very_light,
+                               activeforeground=secondary_color_very_light,
+                               foreground=secondary_color_very_light,
                                padx="20",  # отступ от границ до содержимого по горизонтали
                                pady="8",  # отступ от границ до содержимого по вертикали
                                font="16",  # высота шрифта
                                command=self.__compute_data
                                )
-        title_text = Label(self.root, text="Дела на сегодня")
-        text = Label(self.root, text="Дела на сегодня")
-        mass_text.pack()
-        mass_entry.pack()
-        top_pressure_text.pack()
-        top_pressure_entry.pack()
-        bottom_pressure_text.pack()
-        bottom_pressure_entry.pack()
-        pulse.pack()
-        pulse_entry.pack()
-        button_submit.pack()
-        title_text.pack()
-        text.pack()
+        close_button_submit = self._close_button(inform_frame, "Выйти")
+        #!!! откорректировать выход
+        first_figure = plot.Plot(graph_frame,
+                                 data_cl.Data().get_mass()[0],
+                                 data_cl.Data().get_mass()[1],
+                                 'Масса', 0, 0)
+        second_figure = plot.Plot(graph_frame,
+                                  data_cl.Data().get_pulse()[0],
+                                  data_cl.Data().get_pulse()[1],
+                                  'Пульс', 0, 0)
+        third_figure = plot.Plot(graph_frame,
+                                 data_cl.Data().get_top_pressure()[0],
+                                 data_cl.Data().get_top_pressure()[1],
+                                 'Пульс',
+                                 data_cl.Data().get_bottom_pressure()[0],
+                                 data_cl.Data().get_bottom_pressure()[1])
+
+        # title_text = Label(self.root, text="Дела на сегодня")
+        # text = Label(self.root, text="Дела на сегодня")
+
+        mass_text.pack(pady=3, expand=1, anchor='n')
+        mass_entry.pack(pady=3, expand=1, anchor='n')
+        top_pressure_text.pack(pady=3, expand=1, anchor='n')
+        top_pressure_entry.pack(pady=3, expand=1, anchor='n')
+        bottom_pressure_text.pack(pady=3, expand=1)
+        bottom_pressure_entry.pack(pady=3, expand=1)
+        pulse.pack(pady=3, expand=1)
+        pulse_entry.pack(pady=3, expand=1)
+        button_submit.pack(pady=3, expand=1)
+        close_button_submit.pack(pady=3, expand=1)
+
+        # title_text.pack(pady=9, expand=1, anchor='n')
+        # text.pack(pady=9, expand=1, anchor='n')
 
 
 #t = ReminderWindow().create()
+#z = AuthorizationWindow().create()
+#t = MainWindow().create()
