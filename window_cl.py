@@ -264,7 +264,7 @@ class MainWindow(Window):
                                command=self.__compute_data
                                )
         close_button_submit = self._close_button(inform_frame, "Выйти")
-        #!!! откорректировать выход
+        # !!! откорректировать выход
         first_figure = plot.Plot(graph_frame,
                                  data_cl.Data().get_mass()[0],
                                  data_cl.Data().get_mass()[1],
@@ -298,6 +298,7 @@ class MainWindow(Window):
         # text.pack(pady=9, expand=1, anchor='n')
 
 
-#t = ReminderWindow().create()
-#z = AuthorizationWindow().create()
-#t = MainWindow().create()
+if __name__ == '__main__':
+    # t = ReminderWindow().create()
+    # z = AuthorizationWindow().create()
+    t = MainWindow().create()
