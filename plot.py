@@ -1,12 +1,14 @@
-from numpy import array
+from numpy import array, arange
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from colors import *
+from matplotlib.pyplot import *
 
 
 class Plot:
     def __init__(self, window, x, y, title, unit, x1, y1):
         self.window = window
+        self.xdat = x
         self.x = array(x)
         self.y = array(y)
         self.title = title
@@ -44,6 +46,17 @@ class Plot:
             for side in ['bottom', 'top', 'left', 'right']:
                 a.spines[side].set_color(tertiary_color_very_light)
             a.tick_params(axis='both', colors=tertiary_color_very_light)
+
+            # # labels is an array of tick labels.
+            # #locs, labels = xticks()
+            #
+            # # set the locations and labels of the xticks
+            print(self.xdat)
+            print(range(0,len(x),1))
+
+            # xticks(y, list(self.xdat))
+            a.set_xticks(range(0,len(x),1))
+            a.set_xticklabels(self.xdat)
 
             canvas = FigureCanvasTkAgg(fig, master=self.window)
             canvas.get_tk_widget().pack()

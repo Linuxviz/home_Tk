@@ -316,6 +316,6 @@ class MainWindow(Window):
 
 
 if __name__ == '__main__':
-    ReminderWindow().create()
-    AuthorizationWindow().create()
+    #ReminderWindow().create()
+    #AuthorizationWindow().create()
     MainWindow().create()
