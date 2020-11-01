@@ -182,6 +182,7 @@ class MainWindow(Window):
                        self.input_top_pressure.get(),
                        self.input_bottom_pressure.get(),
                        self.input_pulse.get())
+
         self.mass_text.destroy()
         self.mass_entry.destroy()
         self.top_pressure_text.destroy()
@@ -278,7 +279,6 @@ class MainWindow(Window):
                                     command=self.__compute_data
                                     )
         self.close_button_submit = self._close_button(self.inform_frame, "Выйти")
-        # !!! откорректировать выход
         first_figure = plot.Plot(graph_frame,
                                  data_cl.Data().get_mass()[0],
                                  data_cl.Data().get_mass()[1],

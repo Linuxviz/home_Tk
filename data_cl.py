@@ -69,8 +69,8 @@ class Data:
             str_list.append('{}.{}.{}'.format(day[i], month[i], year[i]))
         return tuple(str_list)
 
-# x = Data()
-# x.data_backup()
+#x = Data()
+#x.data_backup()
 # x.first_create()
 # x.save_data(12.5, 15, 15, 15)
 # print(x.get_mass())
